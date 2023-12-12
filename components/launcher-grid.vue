@@ -11,8 +11,12 @@
       <template #item="{ element }">
         <AppLauncher
           v-bind="element"
+          role="button"
+          tabindex="0"
+          :disabled="dragging"
           @click.prevent="() => openApp(element)"
           @touchend.prevent="() => openApp(element)"
+          @keydown.enter.prevent="() => openApp(element)"
         />
       </template>
     </draggable>
