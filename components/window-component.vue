@@ -81,7 +81,6 @@ export default {
       // Store initial mouse position
       this.initialMouseX = event.touches[0].clientX
       this.initialMouseY = event.touches[0].clientY
-      console.log(this.initialMouseX, this.initialMouseY)
 
       // Store initial window position
       this.initialWindowX = this.$refs.windowRef.offsetLeft
