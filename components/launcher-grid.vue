@@ -8,7 +8,7 @@
       @start="dragging = true"
       @end="dragging = false"
     >
-      <template #item="{element}">
+      <template #item="{ element }">
         <AppLauncher
           v-bind="element"
           @click.native.prevent="() => openApp(element)"
@@ -83,10 +83,15 @@ export default {
         async (app) =>
           await {
             ...app,
-            icon: new URL(`/applications/${app.slug}/icon.png`, import.meta.url).href,
-            app: markRaw(defineAsyncComponent(() => import(`~/applications/${app.slug}/index.vue`))),
-          }
-      )
+            icon: new URL(`/applications/${app.slug}/icon.png`, import.meta.url)
+              .href,
+            app: markRaw(
+              defineAsyncComponent(
+                () => import(`~/applications/${app.slug}/index.vue`),
+              ),
+            ),
+          },
+      ),
     )
   },
 
