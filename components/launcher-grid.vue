@@ -11,8 +11,8 @@
       <template #item="{ element }">
         <AppLauncher
           v-bind="element"
-          @click.native.prevent="() => openApp(element)"
-          @touchend.native.prevent="() => openApp(element)"
+          @click.prevent="() => openApp(element)"
+          @touchend.prevent="() => openApp(element)"
         />
       </template>
     </draggable>
