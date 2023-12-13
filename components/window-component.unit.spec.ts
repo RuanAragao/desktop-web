@@ -4,7 +4,7 @@ import WindowComponent from './window-component.vue'
 
 const findByRef = (wrapper: any, ref: string) => wrapper.find({ ref })
 
-test('shold render window component', () => {
+test('should render window component', () => {
   const props = {
     title: 'Window' as string,
     onClose: () => {},
