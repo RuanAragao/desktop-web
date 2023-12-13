@@ -8,11 +8,15 @@
       @start="dragging = true"
       @end="dragging = false"
     >
-      <template #item="{element}">
+      <template #item="{ element }">
         <AppLauncher
           v-bind="element"
-          @click.native.prevent="() => openApp(element)"
-          @touchend.native.prevent="() => openApp(element)"
+          role="button"
+          tabindex="0"
+          :disabled="dragging"
+          @click.prevent="() => openApp(element)"
+          @touchend.prevent="() => openApp(element)"
+          @keydown.enter.prevent="() => openApp(element)"
         />
       </template>
     </draggable>
@@ -83,10 +87,15 @@ export default {
         async (app) =>
           await {
             ...app,
-            icon: new URL(`/applications/${app.slug}/icon.png`, import.meta.url).href,
-            app: markRaw(defineAsyncComponent(() => import(`~/applications/${app.slug}/index.vue`))),
-          }
-      )
+            icon: new URL(`/applications/${app.slug}/icon.png`, import.meta.url)
+              .href,
+            app: markRaw(
+              defineAsyncComponent(
+                () => import(`~/applications/${app.slug}/index.vue`),
+              ),
+            ),
+          },
+      ),
     )
   },
 

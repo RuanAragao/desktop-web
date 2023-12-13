@@ -3,7 +3,7 @@
     ref="windowRef"
     class="window min-w-[230px] bg-white rounded-lg shadow-lg"
   >
-    <div
+    <header
       class="title-bar bg-gray-200 px-4 py-2 flex items-center justify-between rounded-t-lg"
       @mousedown.prevent="mousedownTitleBar"
       @touchstart.prevent="touchstartTitleBar"
@@ -22,7 +22,7 @@
           @touchend.prevent="onClose"
         ></button>
       </div>
-    </div>
+    </header>
     <div class="content p-4">
       <slot></slot>
     </div>
@@ -81,7 +81,6 @@ export default {
       // Store initial mouse position
       this.initialMouseX = event.touches[0].clientX
       this.initialMouseY = event.touches[0].clientY
-      console.log(this.initialMouseX, this.initialMouseY)
 
       // Store initial window position
       this.initialWindowX = this.$refs.windowRef.offsetLeft
