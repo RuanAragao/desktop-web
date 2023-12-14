@@ -32,14 +32,14 @@
 </template>
 
 <script lang="ts">
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, ref, markRaw } from 'vue'
 import draggable from 'vuedraggable'
-import AppLauncher from '~/components/app-launcher.vue'
-import WindowComponent from '~/components/window-component.vue'
+import AppLauncher from '@/components/app-launcher.vue'
+import WindowComponent from '@/components/window-component.vue'
 
 let pidCounter = 1
 
-type App = {
+export type App = {
   name: string
   icon: string
   slug: string
@@ -56,8 +56,19 @@ export default {
     draggable,
   },
 
-  setup() {
+  props: {
+    bootlist: {
+      type: Array as () => App[],
+      required: true,
+    },
+  },
+
+  setup(props) {
+    const installedApps = ref([] as App[])
+    installedApps.value = props.bootlist
+
     return {
+      installedApps,
       apps: [
         {
           name: 'About',
@@ -83,7 +94,7 @@ export default {
 
   async mounted() {
     this.loadedApps = await Promise.all(
-      this.apps.map(
+      this.installedApps.map(
         async (app) =>
           await {
             ...app,
