@@ -69,18 +69,6 @@ export default {
 
     return {
       installedApps,
-      apps: [
-        {
-          name: 'About',
-          slug: 'about',
-          command: 'run application.about',
-        },
-        {
-          name: 'xTerm',
-          slug: 'xterm',
-          command: 'run application.xterm',
-        },
-      ],
     }
   },
 
