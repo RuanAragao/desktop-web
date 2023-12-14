@@ -47,6 +47,9 @@ jobs:
         if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile
 
+      - name: Build 🏗
+        run: yarn build && yarn nuxi prepare && yarn nuxi build
+
       - name: Run linter 👀
         run: yarn lint
 
