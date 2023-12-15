@@ -41,10 +41,14 @@ let pidCounter = 1
 
 export type App = {
   name: string
+  version: string
+  author: string
+  description: string
+  main: string
   icon: string
   slug: string
   app: () => Promise<typeof import('*.vue')>
-  command: string
+  command?: string
   pid?: number
 }
 
@@ -67,6 +71,8 @@ export default {
     const installedApps = ref([] as App[])
     installedApps.value = props.bootlist
 
+    // console.log(props.bootlist)
+
     return {
       installedApps,
     }
@@ -81,6 +87,14 @@ export default {
   },
 
   async mounted() {
+    // try {
+    //   const response = await fetch('/api/applications');
+    //   const data = await response.json();
+    //   this.installedApps = data.apps;
+    // } catch (error) {
+    //   console.error('Error fetching data:', error);
+    // }
+
     this.loadedApps = await Promise.all(
       this.installedApps.map(
         async (app) =>

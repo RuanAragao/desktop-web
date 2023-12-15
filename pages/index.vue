@@ -1,33 +1,36 @@
 <template>
   <div class="desktop">
-    <LauncherGrid :bootlist="apps" />
+    <!-- <LauncherGrid :bootlist="apps" /> -->
+    <span v-if="!isLoaded">Loading...</span>
+    <component :is="LauncherGrid" v-else :bootlist="apps" />
   </div>
 </template>
 
-<script>
-import LauncherGrid from '@/components/launcher-grid.vue'
-export default {
-  components: {
-    LauncherGrid,
-  },
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { ApplicationsGatewayHttp } from '@/services/applicationsGatewayHttp'
+import LauncherGrid, { type App } from '@/components/launcher-grid.vue'
 
-  setup() {
-    return {
-      apps: [
-        {
-          name: 'About',
-          slug: 'about',
-          command: 'run application.about',
-        },
-        {
-          name: 'xTerm',
-          slug: 'xterm',
-          command: 'run application.xterm',
-        },
-      ],
-    }
-  },
+const apps = ref<App[]>([])
+const isLoaded = ref(false)
+
+const fetchApps = async () => {
+  try {
+    const data = await getApplicationsData()
+    apps.value = data.apps
+    isLoaded.value = true
+  } catch (error) {
+    console.error('Error fetching data:', error)
+  }
 }
+
+const getApplicationsData = async () => {
+  return await ApplicationsGatewayHttp()
+}
+
+onMounted(async () => {
+  await fetchApps()
+})
 </script>
 
 <style>

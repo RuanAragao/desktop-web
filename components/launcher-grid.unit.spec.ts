@@ -4,10 +4,14 @@ import LauncherGrid, { type App } from './launcher-grid.vue'
 
 const installedApps = [
   {
-    name: 'Moo',
-    slug: 'app-moo',
+    name: 'About',
+    version: '1.0.0',
+    description: 'About this project',
+    author: 'Ruan',
+    main: 'index.vue',
+    slug: 'about',
     icon: 'icon.png',
-    command: 'echo "Hello world"',
+    command: "echo 'Hello World'",
   },
 ] as App[]
 

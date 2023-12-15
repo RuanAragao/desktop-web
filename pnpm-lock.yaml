@@ -103,6 +103,9 @@ devDependencies:
   vitest:
     specifier: ^1.0.4
     version: 1.0.4(jsdom@22.1.0)(sass@1.69.5)
+  vitest-fetch-mock:
+    specifier: ^0.2.2
+    version: 0.2.2(vitest@1.0.4)
   vue:
     specifier: ^3.3.10
     version: 3.3.11(typescript@5.3.3)
@@ -4140,6 +4143,14 @@ packages:
 
   /create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
+    dev: true
+
+  /cross-fetch@3.1.8:
+    resolution: {integrity: sha512-cvA+JwZoU0Xq+h6WkMvAUqPEYy92Obet6UdKLfW60qn99ftItKjB5T+BkyWOFWe2pUyfQ+IJHmpOTznqk1M6Kg==}
+    dependencies:
+      node-fetch: 2.7.0
+    transitivePeerDependencies:
+      - encoding
     dev: true
 
   /cross-spawn@7.0.3:
@@ -11243,6 +11254,18 @@ packages:
       - '@vue/server-renderer'
       - rollup
       - supports-color
+    dev: true
+
+  /vitest-fetch-mock@0.2.2(vitest@1.0.4):
+    resolution: {integrity: sha512-XmH6QgTSjCWrqXoPREIdbj40T7i1xnGmAsTAgfckoO75W1IEHKR8hcPCQ7SO16RsdW1t85oUm6pcQRLeBgjVYQ==}
+    engines: {node: '>=14.14.0'}
+    peerDependencies:
+      vitest: '>=0.16.0'
+    dependencies:
+      cross-fetch: 3.1.8
+      vitest: 1.0.4(jsdom@22.1.0)(sass@1.69.5)
+    transitivePeerDependencies:
+      - encoding
     dev: true
 
   /vitest@1.0.4(jsdom@22.1.0)(sass@1.69.5):
