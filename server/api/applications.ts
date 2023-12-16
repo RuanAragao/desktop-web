@@ -3,22 +3,21 @@ import * as fs from 'node:fs'
 
 const ignore = ['.eslintrc.cjs'] as Array<string>
 
-function getApplications() {
+async function getApplications() {
   const applicationsDir = path.join(process.cwd(), 'applications')
 
-  return fs.promises.readdir(applicationsDir).then((appFolders) =>
-    Promise.all(
-      appFolders.map(async (folder) => {
-        if (ignore.includes(folder)) return
+  const appFolders = await fs.promises.readdir(applicationsDir)
+  return await Promise.all(
+    appFolders.map(async (folder) => {
+      if (ignore.includes(folder)) return
 
-        const dataPath = path.join(applicationsDir, folder, 'data.json')
-        if (!fs.existsSync(dataPath)) return
+      const dataPath = path.join(applicationsDir, folder, 'data.json')
+      if (!fs.existsSync(dataPath)) return
 
-        const rawData = await fs.promises.readFile(dataPath, 'utf-8')
-        const appData = JSON.parse(rawData)
-        return appData
-      }),
-    ),
+      const rawData = await fs.promises.readFile(dataPath, 'utf-8')
+      const appData = JSON.parse(rawData)
+      return appData
+    }),
   )
 }
 
