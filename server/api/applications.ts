@@ -1,28 +1,60 @@
-import * as path from 'node:path'
-import * as fs from 'node:fs'
+import { promises as fsPromises, constants, PathLike } from 'fs'
+import { join } from 'path'
 
-const ignore = ['.eslintrc.cjs'] as Array<string>
+const IGNORED_FILES = ['.eslintrc.cjs']
+
+const getAppDirectory = () => {
+  const isDevelopment = process.env.NODE_ENV === 'development'
+
+  const baseDir = isDevelopment ? process.cwd() : join('..', 'applications')
+
+  return baseDir
+}
+
+async function readJsonFile(filePath: PathLike | fsPromises.FileHandle) {
+  try {
+    const rawData = await fsPromises.readFile(filePath, 'utf-8')
+    return JSON.parse(rawData)
+  } catch (error) {
+    console.error(`Error reading JSON file ${filePath}:`, error)
+    return null
+  }
+}
 
 async function getApplications() {
-  const applicationsDir = path.join(process.cwd(), 'applications')
+  const applicationsDir = getAppDirectory()
+  console.log('applicationsDir:', applicationsDir)
 
-  const appFolders = await fs.promises.readdir(applicationsDir)
-  return await Promise.all(
-    appFolders.map(async (folder) => {
-      if (ignore.includes(folder)) return
+  try {
+    const appFolders = await fsPromises.readdir(applicationsDir)
 
-      const dataPath = path.join(applicationsDir, folder, 'data.json')
-      if (!fs.existsSync(dataPath)) return
+    const appDataPromises = appFolders.map(async (folder) => {
+      if (IGNORED_FILES.includes(folder)) return null
 
-      const rawData = await fs.promises.readFile(dataPath, 'utf-8')
-      const appData = JSON.parse(rawData)
-      return appData
-    }),
-  )
+      const dataPath = join(applicationsDir, folder, 'data.json')
+      try {
+        await fsPromises.access(dataPath, constants.R_OK)
+        return readJsonFile(dataPath)
+      } catch (error) {
+        console.error(`Error accessing file ${dataPath}:`, error)
+        return null
+      }
+    })
+
+    const appData = await Promise.all(appDataPromises)
+    return appData.filter((item) => item !== null)
+  } catch (error) {
+    console.error('Error reading application folders:', error)
+    return []
+  }
 }
 
 export default defineEventHandler(async (_event) => {
-  const returnData = await getApplications()
-  const data = returnData.filter((item) => item !== undefined && item !== null)
-  return { apps: data }
+  try {
+    const apps = await getApplications()
+    return { apps }
+  } catch (error) {
+    console.error('Error in defineEventHandler:', error)
+    return { apps: [] }
+  }
 })
