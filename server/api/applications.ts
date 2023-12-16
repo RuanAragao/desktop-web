@@ -6,7 +6,9 @@ const IGNORED_FILES = ['.eslintrc.cjs']
 const getAppDirectory = () => {
   const isDevelopment = process.env.NODE_ENV === 'development'
 
-  const baseDir = isDevelopment ? process.cwd() : join('..', 'applications')
+  const baseDir = isDevelopment
+    ? process.cwd()
+    : join(process.cwd(), '..', 'applications')
 
   return baseDir
 }
