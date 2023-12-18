@@ -27,6 +27,17 @@ const processesList = ['LOAD_APPS'] as const
 
 const processesCompleted = reactive<string[]>([])
 
+useHead({
+  title: 'Ruan Aragão - Software Developer',
+  meta: [
+    {
+      name: 'Ruan Aragão',
+      content:
+        'Construindo experiências digitais envolventes que transformam positivamente a vida das pessoas.',
+    },
+  ],
+})
+
 const bootLoadingProgress = () => {
   const loadingInterval = setInterval(() => {
     if (processesCompleted.length < processesList.length) {
@@ -59,9 +70,9 @@ watch(processesCompleted, () => {
 
 bootLoadingProgress()
 
-const fetchApps = async () => {
+const fetchApps = () => {
   try {
-    const data = await getApplicationsData()
+    const data = getApplicationsData()
     apps.value = data
     processesCompleted.push('LOAD_APPS')
   } catch (error) {
@@ -69,12 +80,12 @@ const fetchApps = async () => {
   }
 }
 
-const getApplicationsData = async () => {
-  return await Applications()
+const getApplicationsData = () => {
+  return Applications()
 }
 
-onMounted(async () => {
-  await fetchApps()
+onMounted(() => {
+  fetchApps()
 })
 </script>
 
