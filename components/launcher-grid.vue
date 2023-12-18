@@ -36,21 +36,9 @@ import { defineAsyncComponent, ref, markRaw } from 'vue'
 import draggable from 'vuedraggable'
 import AppLauncher from '@/components/app-launcher.vue'
 import WindowComponent from '@/components/window-component.vue'
+import type { Application } from '@/types'
 
 let pidCounter = 1
-
-export type App = {
-  name: string
-  version: string
-  author: string
-  description: string
-  main: string
-  icon: string
-  slug: string
-  app: () => Promise<typeof import('*.vue')>
-  command?: string
-  pid?: number
-}
 
 export default {
   name: 'LauncherGrid',
@@ -62,16 +50,14 @@ export default {
 
   props: {
     bootlist: {
-      type: Array as () => App[],
+      type: Array as () => Application[],
       required: true,
     },
   },
 
   setup(props) {
-    const installedApps = ref([] as App[])
+    const installedApps = ref([] as Application[])
     installedApps.value = props.bootlist
-
-    // console.log(props.bootlist)
 
     return {
       installedApps,
@@ -80,21 +66,13 @@ export default {
 
   data() {
     return {
-      loadedApps: [] as App[],
-      runningApps: [] as App[],
+      loadedApps: [] as Application[],
+      runningApps: [] as Application[],
       dragging: false as boolean,
     }
   },
 
   async mounted() {
-    // try {
-    //   const response = await fetch('/api/applications');
-    //   const data = await response.json();
-    //   this.installedApps = data.apps;
-    // } catch (error) {
-    //   console.error('Error fetching data:', error);
-    // }
-
     this.loadedApps = await Promise.all(
       this.installedApps.map(
         async (app) =>
@@ -113,7 +91,7 @@ export default {
   },
 
   methods: {
-    openApp(app: App) {
+    openApp(app: Application) {
       const pid = pidCounter++
       const appInstance = { ...app, pid }
       this.runningApps.push(appInstance)

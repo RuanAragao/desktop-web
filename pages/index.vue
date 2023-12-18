@@ -11,11 +11,12 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, watch } from 'vue'
-import { ApplicationsGatewayHttp } from '@/services/applicationsGatewayHttp'
-import LauncherGrid, { type App } from '@/components/launcher-grid.vue'
+import LauncherGrid from '@/components/launcher-grid.vue'
 import BootscreenComponent from '@/components/bootscreen-component.vue'
+import Applications from '@/applications'
+import type { Application } from '@/types'
 
-const apps = ref<App[]>([])
+const apps = ref<Application[]>([])
 const isLoaded = ref(false)
 const startFinish = ref(false)
 
@@ -61,7 +62,7 @@ bootLoadingProgress()
 const fetchApps = async () => {
   try {
     const data = await getApplicationsData()
-    apps.value = data.apps
+    apps.value = data
     processesCompleted.push('LOAD_APPS')
   } catch (error) {
     console.error('Error fetching data:', error)
@@ -69,7 +70,7 @@ const fetchApps = async () => {
 }
 
 const getApplicationsData = async () => {
-  return await ApplicationsGatewayHttp()
+  return await Applications()
 }
 
 onMounted(async () => {
