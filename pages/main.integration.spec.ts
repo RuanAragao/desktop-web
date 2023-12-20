@@ -33,9 +33,7 @@ describe('Main page integrations', () => {
 
     await new Promise((resolve) => setTimeout(resolve, 0))
     await wrapper.vm.$nextTick()
-    await wrapper.vm.$nextTick()
 
-    // console.log(wrapper.vm.apps)
     expect(wrapper.vm.apps).toHaveLength(apps.length)
   })
 })

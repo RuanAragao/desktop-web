@@ -11,6 +11,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, watch } from 'vue'
+import { useHead } from 'unhead'
 import LauncherGrid from '@/components/launcher-grid.vue'
 import BootscreenComponent from '@/components/bootscreen-component.vue'
 import Applications from '@/applications'
