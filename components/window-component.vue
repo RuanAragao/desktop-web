@@ -23,7 +23,7 @@
         ></button>
       </div>
     </header>
-    <div class="content p-4">
+    <div class="content">
       <slot></slot>
     </div>
     <div
