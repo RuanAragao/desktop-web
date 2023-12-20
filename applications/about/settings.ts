@@ -1,5 +1,12 @@
-export const settings = {
+import defineApplication from '@/utils/define-application'
+
+export default defineApplication({
   name: 'About',
-  icon: 'info-circle',
-  route: 'about',
-}
+  version: '1.0.0',
+  description: 'About this project',
+  author: 'Ruan',
+  main: 'index.vue',
+  slug: 'about',
+  icon: 'icon.png',
+  command: "echo 'Hello World'",
+})

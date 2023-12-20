@@ -6,5 +6,10 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
+    // setupFiles: ['./tests/setupVitest.ts'],
+    alias: {
+      '~/': new URL('./', import.meta.url).pathname,
+      '@/': new URL('./', import.meta.url).pathname,
+    },
   },
 })

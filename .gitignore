@@ -18,15 +18,18 @@ logs
 .fleet
 .idea
 
+
 # Local env files
 .env
 .env.*
 !.env.example
 
 .eslintcache
+.stylelintcache
 
 # vuepress build output
 .vuepress/dist
 
 # Serverless directories
 .serverless
+.vercel
