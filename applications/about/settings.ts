@@ -9,4 +9,8 @@ export default defineApplication({
   slug: 'about',
   icon: 'icon.png',
   command: "echo 'Hello World'",
+  windowSize: {
+    width: 300,
+    height: 400,
+  },
 })
