@@ -25,6 +25,7 @@
       :key="app.pid"
       :title="app.name"
       :on-close="() => runningApps.splice(runningApps.indexOf(app), 1)"
+      :window-size="app.windowSize"
     >
       <component :is="app.app" />
     </WindowComponent>
@@ -46,6 +47,9 @@ export default {
     AppLauncher,
     WindowComponent,
     draggable,
+    installedApps: [] as Application[],
+    loadedApps: [] as Application[],
+    runningApps: [] as Application[],
   },
 
   props: {

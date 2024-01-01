@@ -1,11 +1,8 @@
 <template>
-  <div
-    ref="windowRef"
-    class="window min-w-[230px] bg-white rounded-lg shadow-lg"
-  >
+  <div ref="windowRef" class="window bg-white rounded-lg shadow-lg">
     <header
       class="title-bar bg-gray-200 px-4 py-2 flex items-center justify-between rounded-t-lg"
-      @mousedown.prevent="mousedownTitleBar"
+      @mousedown.left.prevent="mousedownTitleBar"
       @touchstart.prevent="touchstartTitleBar"
     >
       <div class="title text-gray-800">{{ title }}</div>
@@ -33,7 +30,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'WindowComponent',
   props: {
@@ -44,6 +41,13 @@ export default {
     onClose: {
       type: Function,
       default: () => {},
+    },
+    windowSize: {
+      type: Object,
+      default: () => ({
+        width: 340,
+        height: 230,
+      }),
     },
   },
 
@@ -57,6 +61,11 @@ export default {
     initialWidth: 0,
     initialHeight: 0,
   }),
+
+  mounted() {
+    this.$refs.windowRef.style.width = `${this.windowSize.width}px`
+    this.$refs.windowRef.style.height = `${this.windowSize.height}px`
+  },
 
   methods: {
     // DnD
@@ -158,8 +167,8 @@ export default {
     },
     maximizeWindow() {
       if (this.$refs.windowRef.style.width === '100%') {
-        this.$refs.windowRef.style.width = '340px'
-        this.$refs.windowRef.style.height = '230px'
+        this.$refs.windowRef.style.width = this.windowSize.width + 'px'
+        this.$refs.windowRef.style.height = this.windowSize.height + 'px'
         return
       }
       this.$refs.windowRef.style.left = '50%'
@@ -181,8 +190,6 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 340px;
-  height: 230px;
   overflow: hidden;
 }
 

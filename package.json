@@ -2,6 +2,7 @@
   "name": "desktop-web",
   "private": true,
   "type": "commonjs",
+  "version": "0.2.5",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev --host",
