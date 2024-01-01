@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import LauncherGrid, { type App } from './launcher-grid.vue'
+import LauncherGrid from './launcher-grid.vue'
+import type { Application } from '@/types'
 
 const installedApps = [
   {
@@ -13,7 +14,7 @@ const installedApps = [
     icon: 'icon.png',
     command: "echo 'Hello World'",
   },
-] as App[]
+] as Application[]
 
 const props = {
   bootlist: installedApps,

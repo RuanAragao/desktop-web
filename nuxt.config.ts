@@ -8,6 +8,11 @@ export default defineNuxtConfig({
     '@nuxtjs/stylelint-module',
   ],
 
+  tailwindcss: {
+    exposeConfig: true,
+    viewer: true,
+  },
+
   routeRules: {
     '/**': {
       prerender: true,
