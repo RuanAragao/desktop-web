@@ -1,20 +1,20 @@
 <template>
   <div ref="windowRef" class="window bg-white rounded-lg shadow-lg">
     <header
-      class="title-bar bg-gray-200 px-4 py-2 flex items-center justify-between rounded-t-lg"
+      class="group title-bar bg-gray-200 px-4 py-2 flex items-center justify-between rounded-t-lg"
       @mousedown.left.prevent="mousedownTitleBar"
       @touchstart.prevent="touchstartTitleBar"
     >
       <div class="title text-gray-800">{{ title }}</div>
       <div class="controls flex space-x-2">
-        <button class="minimize w-4 h-4 bg-gray-400 rounded-full"></button>
+        <button class="minimize w-4 h-4 bg-gray-400 rounded-full transition-colors duration-150 ease-in-out group-hover:bg-yellow-500"></button>
         <button
-          class="maximize w-4 h-4 bg-gray-400 rounded-full"
+          class="maximize w-4 h-4 bg-gray-400 rounded-full transition-colors duration-150 ease-in-out group-hover:bg-green-500"
           @click.prevent="maximizeWindow"
           @touchend.prevent="maximizeWindow"
         ></button>
         <button
-          class="close w-4 h-4 bg-gray-400 rounded-full"
+          class="close w-4 h-4 bg-gray-400 rounded-full transition-colors duration-150 ease-in-out group-hover:bg-red-500"
           @click.prevent="onClose"
           @touchend.prevent="onClose"
         ></button>
