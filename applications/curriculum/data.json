@@ -1,0 +1,10 @@
+{
+  "name": "Curriculum",
+  "version": "1.0.0",
+  "description": "My Curriculum",
+  "author": "Ruan",
+  "main": "index.vue",
+  "slug": "about",
+  "icon": "icon.png",
+  "command": "echo 'Hello World'"
+}
